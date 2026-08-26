@@ -10,8 +10,16 @@ services:
       - ./.env
     volumes:
       - .:/app
+
+  worker:
+    build: .
+    command: rq worker emails
+    env_file:
+      - ./.env
+    volumes:
+      - .:/app
   db:
-    image: postgres
+    image: postgres:17
     environment:
       - POSTGRES_PASSWORD=password
       - POSTGRES_DB=myapp
